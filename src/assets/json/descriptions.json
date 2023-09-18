@@ -1,0 +1,27 @@
+[
+    {
+        "name": "Nymphalidae",
+        "rank": "family",
+        "description": "Forelegs very feebly developed in both sexes, short, imperfect, and unfitted for walking. F orew ing with the subcostal nervure emitting four branches exclusive of terminal portion."
+    },{
+        "name": "Lycaenidae",
+        "rank": "family",
+        "description": "Forelegs slender and evidently smaller than the rest, but nearly alike in the sexes, used for walking, scaly; tarsus of the male long, exarticulate, that of the female jointed like in the hindlegs. Forew ing , with the subcostal nervure emitting only two, or three, branches; the discoidal cell generally narrow owing to the distance between the costal and subcostal nervures. All but one or two of small size. Body, rather slender; antennae , short, often ringed with white, white an elongate distinct club; palpi , elongate, terminal joint, slender, horizontal and nearly naked. Hindwing , scarcely channelled to receive the abdomen, often with one or more slender tails; precostal nervure apparently wanting"
+    },{
+        "name": "Papilionidae",
+        "rank": "family",
+        "description": "All six legs perfect. Wings, with the discoidal cells always completely closed; some of the subcostal nervules of the forewing emitted beyond the end of the cell."
+    },{
+        "name": "Hesperidae",
+        "rank": "family",
+        "description": "all six legs perfect. Wings , with the discoidal cell of hindwing slenderly, and often incompletely closed, subcostal nervure of forewing always with four branches, all four emitted before end of cell. O f small size, very robust build and rapid flight. Body of all but a few very robust; antennae, wide apart at base, with a thick club or strong curved hook at tip ; palpi, short, very broad, closely pressed against the face, densely squamose. Hindlegs, generally with a pair of movable spines at the tip of the tibiae, and another pair in the middle ; Middle legs with a pair of movable spines at the tip of the tibiae."
+    },{
+        "name": "Pieridae",
+        "rank": "family",
+        "description": "Pieridae is a family of butterflies known for their predominantly white or yellow wings with distinct patterns. They are often referred to as the white or sulfur butterflies. Members of this family typically have all six legs in perfect condition. The forewings and hindwings are usually well-developed, allowing for strong and sustained flight. The antennae are slender, and the palpi are relatively short. Pieridae butterflies are characterized by the presence of a discoidal cell in the wings, which is usually open, and the subcostal nervure emitting a variable number of branches. They are widely distributed across the world and include species like the cabbage white butterfly and the clouded yellow butterfly."
+    },{
+        "name": "Riodinidae",
+        "rank": "family",
+        "description": "Riodinidae is a diverse family of butterflies known for their vibrant and striking wing patterns. They are often called metalmarks due to the metallic and iridescent markings on their wings. Members of this family typically have all six legs in perfect condition. Riodinidae butterflies are generally small to medium-sized and are known for their rapid and agile flight. Their antennae can vary in length, and the palpi are typically well-developed. The wings of Riodinidae butterflies are characterized by a closed discoidal cell, and the subcostal nervure of the forewing typically emits multiple branches. These butterflies are found in various habitats, including tropical rainforests and open grasslands, and are appreciated for their diverse and colorful appearances."
+    }
+]
