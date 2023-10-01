@@ -7,15 +7,50 @@
         gap: 1rem;
         justify-content: space-between;
     }
+
+    .species-modal-container{
+        background: rgba(0,0,0,.67);
+        margin: 0rem;
+        padding: 1rem;
+        position: absolute;
+        inset: 0;
+
+    }
+
+    @media only screen and (max-width: 600px) {
+        .species-cards-container{
+            gap: .5rem;
+        }
+    }
 </style>
 
 <template>
-    <h1>Species Array</h1>    
+    <div class="btn-group">
+        <button class="btn"
+            v-for="family in families"
+            :key="family"
+            :class="(selected_family === family) ? 'btn-success' : 'btn-primary'"
+            @click="selectFamily(family)"
+            v-text="family"
+        />
+    </div>
+    <div style="background: limegreen">
+        {{ selected_species }}
+    </div>
+    <h1>Species</h1>
     <div class="species-cards-container">
         <species-card
-            v-for="species in species_array"
+            v-for="species in filtered_species"
+            :class="{'last-clicked': last_clicked_card == species.id}"
             :key="species.id"
             :species="species"
+            @click="cardClick(species)"
+        />
+    </div>
+    <div class="species-modal-container" v-if="selected_species">
+        <species-modal
+            :species="selected_species"
+            @close="closeModal"
         />
     </div>
 </template>
@@ -25,7 +60,39 @@
     import { ref, computed } from 'vue'
     import { useStore } from 'vuex'
     import SpeciesCard from './SpeciesCard.vue'
+    import SpeciesModal from './SpeciesModal.vue'
 
     const store = useStore()
+    const families = [ "Papilionidae", "Nymphalidae", "Lycaenidae", "Pieridae", "Riodinidae", "Hesperiidae"]
+    const selected_family = ref(null)
     const species_array = computed(() => store.getters.species_array)
+    const filtered_species = computed(() => {
+        if (selected_family.value) {
+            return species_array.value.filter(species => species.family === selected_family.value)
+        } else {
+            return species_array.value
+        }
+    })
+    
+    const selected_species = ref(null)
+    const scrollPosition = ref(0)
+    const last_clicked_card = ref(null)
+    
+
+    const cardClick = (species) => {
+        scrollPosition.value = window.scrollY
+        selected_species.value = species
+        window.scrollTo(0, 0)
+    }
+    
+    const closeModal = () => {
+        last_clicked_card.value = selected_species.value.id
+        selected_species.value = null
+        window.scrollTo(0, scrollPosition.value + 250)
+
+    }
+
+    const selectFamily = (family) => {
+        selected_family.value = (selected_family.value == family) ? null : family
+    }
 </script>
