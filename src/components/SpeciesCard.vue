@@ -101,7 +101,7 @@ const imageUrl = () => {
     let op = "#"
     if (props.species.image) {
         // op = window.location.origin + `/assets/photos/all/${family}/${props.species.image.filename}`
-        op = `../src/assets/photos/all/${family}/${props.species.image.filename}`
+        op = `/assets/photos/${family}/${props.species.image.filename}`
     }
     return op
 }
