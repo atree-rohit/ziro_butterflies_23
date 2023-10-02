@@ -17,6 +17,12 @@
 
     }
 
+    .table td{
+        overflow: hidden;
+        max-width: 75ch;
+        white-space: nowrap;
+    }
+
     @media only screen and (max-width: 600px) {
         .species-cards-container{
             gap: .5rem;
@@ -25,6 +31,29 @@
 </style>
 
 <template>
+    <table class="table">
+        <thead>
+            <tr>
+                <th
+                    v-for="sk in species_keys"
+                    :key="sk"
+                    v-text="sk"
+                />
+            </tr>
+        </thead>
+        <tbody>
+            <tr
+                v-for="species in filtered_species"
+                :key="species.id"
+            >
+                <td 
+                    v-for="sk in species_keys"
+                    :key="sk"
+                    v-text="species[sk]"
+                />
+            </tr>
+        </tbody>
+    </table>
     <div class="btn-group">
         <button class="btn"
             v-for="family in families"
@@ -95,4 +124,7 @@
     const selectFamily = (family) => {
         selected_family.value = (selected_family.value == family) ? null : family
     }
+
+    const species_keys = [ "id", "sequence", "user_id", "featured_photo_id", "scientific_name", "common_name", "family", "subfamily", "tribe", "genus", "species", "summary", "distribution", "abundance", "season", "size", "habitat", "altitude", "hostplant", "links", "notes", "description", "source"]
+    // const species_keys = [ "id", "scientific_name", "common_name", "description", "source"]
 </script>
