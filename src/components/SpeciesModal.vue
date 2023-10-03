@@ -173,7 +173,7 @@
     const imageUrl = () => {
         const family = props.species.family
         console.log(unused_fields())
-        return (props.species.image) ?  `assets/photos/${family}/${props.species.image.filename}` : "#"
+        return (props.species.image) ?  `/ziro_butterflies_23/assets/photos/${family}/${props.species.image.filename}` : "#"
     }
 
     const unused_fields = () => {
