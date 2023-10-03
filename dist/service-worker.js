@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ZB0.01';
+const CACHE_NAME = 'ZB0.02';
 const urlsToCache = [
     '/',
     [
