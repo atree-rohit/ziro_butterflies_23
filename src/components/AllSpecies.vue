@@ -93,6 +93,8 @@
     const selected_family = ref(null)
     const species_array = computed(() => store.getters.species_array)
     const filtered_species = computed(() => {
+        // console.log(species_array.value.map((s) => `/ziro_butterflies_23/assets/photos/${s.family}/${s.image.filename}`))
+
         if (selected_family.value) {
             return species_array.value.filter(species => species.family === selected_family.value)
         } else {
