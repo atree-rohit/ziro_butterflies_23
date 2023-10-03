@@ -63,9 +63,6 @@
             v-text="family"
         />
     </div>
-    <div style="background: limegreen">
-        {{ selected_species }}
-    </div>
     <h1>Species</h1>
     <div class="species-cards-container">
         <species-card
