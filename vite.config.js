@@ -20,8 +20,8 @@ export default defineConfig({
         description: 'A field guide for butterflies in Ziro Arunachal Pradesh',
         theme_color: '#ffffff',
         background_color: '#ffffff',
-        start_url: './',
-        scope: "./",
+        start_url: '/ziro_butterflies_23/',
+        scope: "/ziro_butterflies_23/",
         display: 'standalone',
         icons: [
           {
