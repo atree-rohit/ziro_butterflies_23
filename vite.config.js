@@ -8,6 +8,7 @@ export default defineConfig({
     vue(),
     VitePWA({
       outDir: 'dist/',
+      base: 'ziro_butterflies_23',
       injectRegister: 'auto',
       registerType: 'auto',
       devOptions: {
