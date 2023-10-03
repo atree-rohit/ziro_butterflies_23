@@ -4,11 +4,11 @@ import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/ziro_butterflies_23/',
   plugins: [
     vue(),
     VitePWA({
       outDir: 'dist/',
-      base: 'ziro_butterflies_23',
       injectRegister: 'auto',
       registerType: 'auto',
       devOptions: {
