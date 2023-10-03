@@ -85,7 +85,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       // Specify the service worker file
-      input: 'src/service-worker.js',
+      // input: 'src/service-worker.js',
     },
   },
 });
