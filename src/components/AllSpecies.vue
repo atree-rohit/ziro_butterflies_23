@@ -31,7 +31,7 @@
 </style>
 
 <template>
-    <table class="table">
+    <table class="table" v-show="false">
         <thead>
             <tr>
                 <th
@@ -125,6 +125,6 @@
         selected_family.value = (selected_family.value == family) ? null : family
     }
 
-    const species_keys = [ "id", "sequence", "user_id", "featured_photo_id", "scientific_name", "common_name", "family", "subfamily", "tribe", "genus", "species", "summary", "distribution", "abundance", "season", "size", "habitat", "altitude", "hostplant", "links", "notes", "description", "source"]
+    const species_keys = [ "id", "sequence", "user_id", "featured_photo_id", "scientific_name", "common_name", "family", "subfamily", "tribe", "genus", "species", "summary", "distribution", "abundance", "season", "size", "habitat", "altitude", "hostplant", "links", "notes", "description", "source", "description"]
     // const species_keys = [ "id", "scientific_name", "common_name", "description", "source"]
 </script>
