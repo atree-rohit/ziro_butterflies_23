@@ -1,8 +1,15 @@
 <style scoped>
 #app-container{
   border: 1px solid green;
-  margin: 5rem 0;
+  margin-bottom: 5rem;
 
+}
+
+#app-container:has(.loading-container),
+#app-container:has(.species-modal-container)
+{
+  max-height: 90vh;
+  overflow:hidden;
 }
 </style>
 

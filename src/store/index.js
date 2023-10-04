@@ -83,8 +83,8 @@ export default createStore({
                 dispatch('setJsonData', item)
             })
             const idb_length = await getIDBlength()
-            if(idb_length == 0){
-                commit('SET_STATUS', `Getting All Images`)
+            if(idb_length < 190){
+                commit('SET_STATUS', `Getting Image ${idb_length} of 194`)
                 const families = ["Papilionidae", "Nymphalidae", "Lycaenidae", "Pieridae", "Riodinidae", "Hesperiidae"]
                 await Promise.all(families.map(async (family) => await dispatch('getPhotos', family)));
                 // families.forEach(async (family) => await dispatch('getPhotos', family))
@@ -101,7 +101,6 @@ export default createStore({
             const url = `/ziro_butterflies_23/assets/photos/${family}_photos.json`
             const response = await axios.get(url)
             if(response){
-                console.log("getting", url)
                 Object.entries(response.data).forEach(async ([key, value]) => await savePhoto(family, key, value))
             }
         },
