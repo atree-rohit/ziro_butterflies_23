@@ -16,6 +16,7 @@ export default createStore({
         json_data: {},
         photos:{},
         status: null,
+        savedPhotos: 0,
     },
     getters: {
         species_array(state){
@@ -55,10 +56,13 @@ export default createStore({
         SET_STATUS(state, payload) {
             console.log(payload)
             state.status = payload
+        },
+        NEW_PHOTO_SAVED(state){
+            state.savedPhotos++
         }
     },
     actions: {
-        async init({dispatch, commit}){
+        async init({dispatch, commit, state}){
             const json_data = [
                 {
                     field: 'family_details',
@@ -82,16 +86,16 @@ export default createStore({
                 commit('SET_STATUS', `Getting ${item.field}`)
                 dispatch('setJsonData', item)
             })
-            const idb_length = await getIDBlength()
+            var idb_length = await getIDBlength()
             if(idb_length < 190){
-                commit('SET_STATUS', `Getting Image ${idb_length} of 194`)
+                
+                commit('SET_STATUS', `Getting Image ${state.savedPhotos} of 194`)
                 const families = ["Papilionidae", "Nymphalidae", "Lycaenidae", "Pieridae", "Riodinidae", "Hesperiidae"]
                 await Promise.all(families.map(async (family) => await dispatch('getPhotos', family)));
                 // families.forEach(async (family) => await dispatch('getPhotos', family))
             } 
             dispatch('storePhotos')
-            commit('SET_STATUS', null)
-            
+            commit('SET_STATUS', null)            
 
         },
         setJsonData({ commit }, payload) {
@@ -101,7 +105,10 @@ export default createStore({
             const url = `/ziro_butterflies_23/assets/photos/${family}_photos.json`
             const response = await axios.get(url)
             if(response){
-                Object.entries(response.data).forEach(async ([key, value]) => await savePhoto(family, key, value))
+                Object.entries(response.data).forEach(async ([key, value]) => {
+                    await savePhoto(family, key, value)
+                    commit('NEW_PHOTO_SAVED')
+                })
             }
         },
         async getPhotos1({ commit }, family) {
