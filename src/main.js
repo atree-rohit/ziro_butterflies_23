@@ -17,6 +17,8 @@ if ("serviceWorker" in navigator) {
                 console.error("Service Worker registration failed:", error)
             })
     })
+} else {
+    console.log("no serviceWorker in navigator")
 }
 
 const app = createApp(App)
