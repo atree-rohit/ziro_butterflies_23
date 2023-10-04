@@ -1,11 +1,19 @@
 <style scoped>
     .species-cards-container {
-        margin: 2rem 0;
+        margin: 0;
+        margin-bottom: 2rem;
         padding: 1rem;
         display: flex;
         flex-wrap: wrap;
         gap: 1rem;
         justify-content: space-between;
+    }
+
+    .selected-taxa{
+        background:#ccc;
+        padding:.5rem;
+        display: flex;
+        justify-content: center;
     }
 
     .species-modal-container{
@@ -64,10 +72,13 @@
         <button class="btn"
             v-for="family in families"
             :key="family"
-            :class="(selected_family === family) ? 'btn-success' : 'btn-primary'"
+            :class="(selected_taxa.name === family) ? 'btn-success' : 'btn-primary'"
             @click="selectFamily(family)"
             v-text="family"
         />
+    </div>
+    <div class="selected-taxa" v-if="selected_taxa.rank">
+        {{selected_taxa.rank}}: {{selected_taxa.name}}
     </div>
     <div class="species-cards-container">
         <species-card
@@ -82,6 +93,7 @@
         <species-modal
             :species="selected_species"
             @close="closeModal"
+            @selectTaxa="selectTaxa"
         />
     </div>
 </template>
@@ -99,12 +111,16 @@
     const store = useStore()
     const families = ["Papilionidae", "Nymphalidae", "Lycaenidae", "Pieridae", "Riodinidae", "Hesperiidae"]
     const selected_family = ref(null)
+    const selected_taxa = ref({
+        rank: null,
+        name: null
+    })
 
     const species_array = computed(() => store.getters.species_array)
 
     const filtered_species = computed(() => {
-        if (selected_family.value) {
-            return species_array.value.filter(species => species.family === selected_family.value)
+        if (selected_taxa.value.rank) {
+            return species_array.value.filter(species => species[selected_taxa.value.rank] === selected_taxa.value.name)
         } else {
             return species_array.value
         }
@@ -129,10 +145,28 @@
     }
 
     const selectFamily = (family) => {
-        selected_family.value = (selected_family.value == family) ? null : family
+        if(selected_taxa.value.name === family){
+            selected_taxa.value = {
+                rank: null,
+                name: null
+            }
+        } else {
+            selected_taxa.value = {
+                rank: "family",
+                name: family
+            }
+        }
     }
 
     const species_keys = [ "id", "sequence", "user_id", "featured_photo_id", "scientific_name", "common_name", "family", "subfamily", "tribe", "genus", "species", "summary", "distribution", "abundance", "season", "size", "habitat", "altitude", "hostplant", "links", "notes", "description", "source", "description"]
+
+    const selectTaxa = (taxa) => {
+        selected_taxa.value = {
+            rank: taxa.rank,
+            name: taxa. name
+        }
+        closeModal()
+    }
     
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.addEventListener('controllerchange', () => {

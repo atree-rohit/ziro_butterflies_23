@@ -45,8 +45,11 @@
     }
     
     .stats-grid{
+        margin: 2rem 0;
         display: flex;
         justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
         width:50%;
     }
     .stats-grid div{
@@ -54,9 +57,11 @@
         flex-direction: column;
         border-radius: 2.5rem 3rem;
         overflow: hidden;
+        min-width:7rem;
     }
     
     .stat-value{
+        text-align: center;
         padding: 0.25rem 1rem;
         background: rgb(196, 222, 233, .5);
     }
@@ -110,9 +115,13 @@
             <i>{{ species.scientific_name }}</i>
         </div>
         <div class="taxon font-sm">
-            <span v-for="field in taxon_fields" :key="field" :title='`${field}: ${species[field]}`'>
-                {{ species[field] }}
-            </span>
+            <span
+                v-for="field in taxon_fields"
+                :key="field"
+                :title='`${field}: ${species[field]}`'
+                @click="selectTaxa(field, species[field])"
+                v-text="species[field]"
+            />
         </div>
         <div class="stats-grid font-sm">
             <div>
@@ -166,6 +175,8 @@
     import { useStore } from 'vuex'
 
     const store = useStore()
+    const emit = defineEmits(['selectTaxa', 'close'])
+
 
     const photos = computed(() => store.state.photos)
 
@@ -187,6 +198,10 @@
             })
 
         return op
+    }
+
+    const selectTaxa = (rank, name) => {
+        emit("selectTaxa", {rank, name})
     }
 
 </script>
