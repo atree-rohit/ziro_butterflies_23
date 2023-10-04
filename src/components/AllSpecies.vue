@@ -56,6 +56,10 @@
             </tr>
         </tbody>
     </table>
+    <search-box
+        :family="selected_family"
+        @selected="cardClick"
+    />
     <div class="btn-group">
         <button class="btn"
             v-for="family in families"
@@ -65,7 +69,6 @@
             v-text="family"
         />
     </div>
-    <h1>Species</h1>
     <div class="species-cards-container">
         <species-card
             v-for="species in filtered_species"
@@ -87,17 +90,18 @@
 <script setup>
     import { ref, computed } from 'vue'
     import { useStore } from 'vuex'
+    import Loading from './Loading.vue'
     import SpeciesCard from './SpeciesCard.vue'
     import SpeciesModal from './SpeciesModal.vue'
     import EncodeImages from './EncodeImages.vue'
-    import Loading from './Loading.vue'
+    import SearchBox from './SearchBox.vue'
 
     const store = useStore()
     const families = ["Papilionidae", "Nymphalidae", "Lycaenidae", "Pieridae", "Riodinidae", "Hesperiidae"]
     const selected_family = ref(null)
+
     const species_array = computed(() => store.getters.species_array)
 
-    const status = computed(() => store.state.status)
     const filtered_species = computed(() => {
         if (selected_family.value) {
             return species_array.value.filter(species => species.family === selected_family.value)
@@ -129,12 +133,11 @@
     }
 
     const species_keys = [ "id", "sequence", "user_id", "featured_photo_id", "scientific_name", "common_name", "family", "subfamily", "tribe", "genus", "species", "summary", "distribution", "abundance", "season", "size", "habitat", "altitude", "hostplant", "links", "notes", "description", "source", "description"]
-    // const species_keys = [ "id", "scientific_name", "common_name", "description", "source"]
+    
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.addEventListener('controllerchange', () => {
-            // Service worker has changed or been installed.
-            // You can show a progress bar or a message here.
             console.log(111)
         });
     }
+
 </script>
