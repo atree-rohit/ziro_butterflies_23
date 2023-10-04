@@ -14,7 +14,8 @@ import users from '../assets/json/users.json'
 export default createStore({
     state: {
         json_data: {},
-        photos:{}
+        photos:{},
+        status: null,
     },
     getters: {
         species_array(state){
@@ -50,10 +51,14 @@ export default createStore({
         SET_PHOTO(state, payload) {
             const {family, species, value} = payload
             state.photos[`${family}_${species}`] = value
+        },
+        SET_STATUS(state, payload) {
+            console.log(payload)
+            state.status = payload
         }
     },
     actions: {
-        async init({dispatch}){
+        async init({dispatch, commit}){
             const json_data = [
                 {
                     field: 'family_details',
@@ -74,6 +79,7 @@ export default createStore({
             ]
             
             json_data.forEach((item) => {
+                commit('SET_STATUS', `Getting ${item.field}`)
                 dispatch('setJsonData', item)
             })
             const idb_length = await getIDBlength()
@@ -82,6 +88,7 @@ export default createStore({
                 families.forEach(async (family) => await dispatch('getPhotos', family))
             } 
             dispatch('storePhotos')
+            commit('SET_STATUS', null)
             
 
         },
@@ -89,7 +96,8 @@ export default createStore({
             commit('SET_JSON_DATA', payload)
         },
         async getPhotos({ commit }, family) {
-            const url = `/assets/photos/${family}_photos.json`
+            commit('SET_STATUS', `Getting ${family} Images`)
+            const url = `/ziro_butterflies_23/assets/photos/${family}_photos.json`
             const response = await axios.get(url)
             if(response){
                 console.log("getting", url)
