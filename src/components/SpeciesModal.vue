@@ -11,6 +11,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        padding-bottom:2rem;
     }
     .close-modal{
         position: relative;
@@ -97,7 +98,7 @@
             <button @click="$emit('close')">X</button>
         </div>
         <div class="image">
-            <img :src="imageUrl()" alt="">
+            <img :src="image" alt="">
         </div>
         <div class="id">
             {{species.id}}
@@ -147,12 +148,12 @@
                 </span>
             </div>
         </div>
-        <div class="description font-sm"
+        <!-- <div class="description font-sm"
             v-html="species.description"
         />
         <div class="source font-sm">
             {{ species.source }}
-        </div>
+        </div> -->
         <!-- <pre>
             {{ Object.keys(species).filter((k) => used_fields.indexOf(k) == -1) }}
         </pre> -->
@@ -161,7 +162,12 @@
 </template>
 
 <script setup>
-    import { VueElement } from 'vue';
+    import { computed, ref } from 'vue'
+    import { useStore } from 'vuex'
+
+    const store = useStore()
+
+    const photos = computed(() => store.state.photos)
 
     const props = defineProps({
         species: Object
@@ -170,11 +176,7 @@
     const taxon_fields = ["family", "subfamily", "tribe", "genus","species"]
     const used_fields = [...taxon_fields, "id", "sequence", "user_id", "featured_photo_id", "scientific_name", "common_name", "order", "description", "created_at", "updated_at", "image", "season", "size", "habitat", "altitude"]
 
-    const imageUrl = () => {
-        const family = props.species.family
-        console.log(unused_fields())
-        return (props.species.image) ?  `/ziro_butterflies_23/assets/photos/${family}/${props.species.image.filename}` : "#"
-    }
+    const image = computed(() => `data:image/png;base64,` + photos.value[`${props.species.family}_${props.species.scientific_name}`])
 
     const unused_fields = () => {
         const op = {}

@@ -78,7 +78,8 @@ img {
 <template>
     <div class="species-card">
         <div class="image">
-            <img :src="imageUrl()" alt="">
+            <!-- <img :src="imageUrl()" alt=""> -->
+            <img :src="image" alt="">
         </div>
         <div class="common-name">
             {{ species.common_name }}
@@ -91,19 +92,15 @@ img {
 </template>
 
 <script setup>
+import { computed, ref } from 'vue'
+import { useStore } from 'vuex'
+
+const store = useStore()
 
 const props = defineProps({
     species: Object
 })
 
-const imageUrl = () => {
-    const family = props.species.family
-    let op = "#"
-    if (props.species.image) {
-        // op = window.location.origin + `/assets/photos/all/${family}/${props.species.image.filename}`
-        op = `/ziro_butterflies_23/assets/photos/${family}/${props.species.image.filename}`
-    }
-    return op
-}
-
+const photos = computed(() => store.state.photos)
+const image = computed(() => `data:image/png;base64,` + photos.value[`${props.species.family}_${props.species.scientific_name}`])
 </script>
