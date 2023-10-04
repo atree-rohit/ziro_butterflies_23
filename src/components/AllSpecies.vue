@@ -96,6 +96,7 @@
             @selectTaxa="selectTaxa"
         />
     </div>
+    <install-button />
 </template>
 
 
@@ -107,6 +108,7 @@
     import SpeciesModal from './SpeciesModal.vue'
     import EncodeImages from './EncodeImages.vue'
     import SearchBox from './SearchBox.vue'
+    import InstallButton from './InstallButton.vue'
 
     const store = useStore()
     const families = ["Papilionidae", "Nymphalidae", "Lycaenidae", "Pieridae", "Riodinidae", "Hesperiidae"]
