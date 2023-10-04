@@ -88,7 +88,7 @@ export default createStore({
         setJsonData({ commit }, payload) {
             commit('SET_JSON_DATA', payload)
         },
-        async getPhotos1({ commit }, family) {
+        async getPhotos({ commit }, family) {
             const url = `/assets/photos/${family}_photos.json`
             const response = await axios.get(url)
             if(response){
@@ -96,7 +96,7 @@ export default createStore({
                 Object.entries(response.data).forEach(async ([key, value]) => await savePhoto(family, key, value))
             }
         },
-        async getPhotos({ commit }, family) {
+        async getPhotos1({ commit }, family) {
             const url = `/ziro_butterflies_23/assets/photos/${family}_photos.json`;
             try {
                 const response = await axios.get(url, {
