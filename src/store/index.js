@@ -85,7 +85,8 @@ export default createStore({
             const idb_length = await getIDBlength()
             if(idb_length == 0){
                 const families = ["Papilionidae", "Nymphalidae", "Lycaenidae", "Pieridae", "Riodinidae", "Hesperiidae"]
-                families.forEach(async (family) => await dispatch('getPhotos', family))
+                await Promise.all(families.map(async (family) => await dispatch('getPhotos', family)));
+                // families.forEach(async (family) => await dispatch('getPhotos', family))
             } 
             dispatch('storePhotos')
             commit('SET_STATUS', null)
