@@ -30,9 +30,15 @@
 
 <template>
     <div class="search-container">
-        <input type="search" v-model="search" placeholder="Search for a species">
+        <input
+            type="search"
+            placeholder="Search for a species"
+            v-model="search"
+            @input="handleInput"
+            @keyup="handleKeyup"
+        >
 
-        <ul>
+        <ul v-show="showSuggestions">
             <li
                 v-for="(species, s) in filtered_species"
                 :key="s"
@@ -69,6 +75,20 @@
         }
         return op
     })
+
+    let showSuggestions = false;
+
+    const handleInput = () => {
+        // Display suggestions when there are at least two characters in the search input
+        showSuggestions = search.value.length >= 2;
+    };
+
+    const handleKeyup = () => {
+        // Hide suggestions when the input is empty
+        if (search.value.length === 0) {
+        showSuggestions = false;
+        }
+    };
 
     const speciesName = (species) => {
         return species.common_name + " (" + species.scientific_name + ")"
