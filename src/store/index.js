@@ -53,7 +53,7 @@ export default createStore({
         }
     },
     actions: {
-        init({dispatch}){
+        async init({dispatch}){
             const json_data = [
                 {
                     field: 'family_details',
@@ -76,12 +76,13 @@ export default createStore({
             json_data.forEach((item) => {
                 dispatch('setJsonData', item)
             })
-            if(getIDBlength() === 0){
+            const idb_length = await getIDBlength()
+            if(idb_length == 0){
                 const families = ["Papilionidae", "Nymphalidae", "Lycaenidae", "Pieridae", "Riodinidae", "Hesperiidae"]
                 families.forEach(async (family) => await dispatch('getPhotos', family))
-            } else {
-                dispatch('storePhotos')
-            }
+            } 
+            dispatch('storePhotos')
+            
 
         },
         setJsonData({ commit }, payload) {
@@ -91,6 +92,7 @@ export default createStore({
             const url = `/assets/photos/${family}_photos.json`
             const response = await axios.get(url)
             if(response){
+                console.log("getting", url)
                 Object.entries(response.data).forEach(async ([key, value]) => await savePhoto(family, key, value))
             }
         },

@@ -35,12 +35,11 @@ async function getPhoto(family, species) {
 }
 
 async function getIDBlength() {
-    // Implement a function to check if the IndexedDB database is empty
-    // You can use openDb and count records in the database
     const db = await openDb();
     const tx = db.transaction(STORE_NAME, 'readonly');
     const store = tx.objectStore(STORE_NAME);
-    return await store.count();
+    const count = await store.count();
+    return count
 }
 
 export { openDb, savePhoto, getPhoto, getIDBlength };
