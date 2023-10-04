@@ -4,14 +4,20 @@
 
 
 <script setup>
+import { computed, ref } from 'vue'
+import { useStore } from 'vuex'
+
+const store = useStore()
+
+const species_array = computed(() => store.getters.species_array)
 
 const urls = {
-    Riodinidae: [
-        "Dark_Judy_Abisara_fylla_e.jpg",
-        "Punchinello-33_e.jpg",
-        "Stripe_Punch,_dodona_adorina.jpg",
-        "IMG_6008_e.jpg"
-    ],
+    // Riodinidae: [
+    //     "Dark_Judy_Abisara_fylla_e.jpg",
+    //     "Punchinello-33_e.jpg",
+    //     "Stripe_Punch,_dodona_adorina.jpg",
+    //     "IMG_6008_e.jpg"
+    // ],
     Papilionidae: [
         "Bhutan_Glory_(bhutantis_ludlowi).jpg",
         "Common_Batwing-14_e.jpg",
@@ -219,10 +225,11 @@ const urls = {
 
 // Function to fetch and encode images
 async function fetchAndEncodeImages() {
+    const lookup_array = species_array.value.map((s) => [s.family, s.scientific_name, s.image.filename])
     Object.keys(urls).forEach(async (family) => {
         const encodedImages = {}
-        console.log(family)
         for (const imageURL of urls[family]) {
+            const species_name = lookup_array.find((s) => s[2] === imageURL)
             try {
                 const response = await fetch(`/assets/photos/${family}/${imageURL}`);
                 const blob = await response.blob();
@@ -231,7 +238,7 @@ async function fetchAndEncodeImages() {
                     reader.onloadend = () => resolve(reader.result.split(',')[1]);
                     reader.readAsDataURL(blob);
                 });
-                encodedImages[imageURL] = base64Data
+                encodedImages[species_name[1]] = base64Data
             } catch (error) {
                 console.error(`Error fetching image: ${error}`);
             }
@@ -243,6 +250,6 @@ async function fetchAndEncodeImages() {
     // createJSONFile(encodedImages)
 }
 
-// fetchAndEncodeImages();
+fetchAndEncodeImages();
 
 </script>
