@@ -150,11 +150,13 @@
                 rank: null,
                 name: null
             }
+            selected_family.value = null
         } else {
             selected_taxa.value = {
                 rank: "family",
                 name: family
             }
+            selected_family.value = family
         }
     }
 
