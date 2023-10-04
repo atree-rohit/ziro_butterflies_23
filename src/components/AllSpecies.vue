@@ -31,6 +31,7 @@
 </style>
 
 <template>
+    <EncodeImages />
     <table class="table" v-show="false">
         <thead>
             <tr>
@@ -87,6 +88,7 @@
     import { useStore } from 'vuex'
     import SpeciesCard from './SpeciesCard.vue'
     import SpeciesModal from './SpeciesModal.vue'
+    import EncodeImages from './EncodeImages.vue'
 
     const store = useStore()
     const families = [ "Papilionidae", "Nymphalidae", "Lycaenidae", "Pieridae", "Riodinidae", "Hesperiidae"]
@@ -126,4 +128,11 @@
 
     const species_keys = [ "id", "sequence", "user_id", "featured_photo_id", "scientific_name", "common_name", "family", "subfamily", "tribe", "genus", "species", "summary", "distribution", "abundance", "season", "size", "habitat", "altitude", "hostplant", "links", "notes", "description", "source", "description"]
     // const species_keys = [ "id", "scientific_name", "common_name", "description", "source"]
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+            // Service worker has changed or been installed.
+            // You can show a progress bar or a message here.
+            console.log(111)
+        });
+    }
 </script>
