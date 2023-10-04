@@ -31,7 +31,7 @@
 </style>
 
 <template>
-    <EncodeImages />
+    <!-- <EncodeImages /> -->
     <table class="table" v-show="false">
         <thead>
             <tr>
@@ -91,7 +91,7 @@
     import EncodeImages from './EncodeImages.vue'
 
     const store = useStore()
-    const families = [ "Papilionidae", "Nymphalidae", "Lycaenidae", "Pieridae", "Riodinidae", "Hesperiidae"]
+    const families = ["Papilionidae", "Nymphalidae", "Lycaenidae", "Pieridae", "Riodinidae", "Hesperiidae"]
     const selected_family = ref(null)
     const species_array = computed(() => store.getters.species_array)
     const filtered_species = computed(() => {
