@@ -32,7 +32,7 @@
 
 <template>
     <!-- <EncodeImages /> -->
-    {{ status }}
+    <Loading />
     <table class="table" v-show="false">
         <thead>
             <tr>
@@ -90,6 +90,7 @@
     import SpeciesCard from './SpeciesCard.vue'
     import SpeciesModal from './SpeciesModal.vue'
     import EncodeImages from './EncodeImages.vue'
+    import Loading from './Loading.vue'
 
     const store = useStore()
     const families = ["Papilionidae", "Nymphalidae", "Lycaenidae", "Pieridae", "Riodinidae", "Hesperiidae"]
