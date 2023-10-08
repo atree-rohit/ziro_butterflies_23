@@ -87,13 +87,12 @@ export default createStore({
                 dispatch('setJsonData', item)
             })
             var idb_length = await getIDBlength()
-            if(idb_length < 190){
+            if(idb_length < 1900){
                 
                 commit('SET_STATUS', `Downloading Images`)
-                const families = ["Papilionidae", "Nymphalidae", "Lycaenidae", "Pieridae", "Riodinidae", "Hesperiidae"]
+                const families = ["Papilionidae", "Lycaenidae", "Pieridae", "Riodinidae", "Hesperiidae", "Nymphalidae_1", "Nymphalidae_2", "Nymphalidae_3", "Nymphalidae_4"]
                 await Promise.all(families.map(async (family) => await dispatch('getPhotos', family)));
-                // families.forEach(async (family) => await dispatch('getPhotos', family))
-            } 
+            }
             dispatch('storePhotos')
             commit('SET_STATUS', null)            
 
@@ -103,10 +102,13 @@ export default createStore({
         },
         async getPhotos({ commit }, family) {
             const url = `/ziro_butterflies_23/assets/photos/${family}_photos.json`
+            // const url = `/assets/photos/${family}_photos.json`
             const response = await axios.get(url)
             if(response){
+                const family_key = family.includes("_") ? family.split("_")[0] : family
+
                 Object.entries(response.data).forEach(async ([key, value]) => {
-                    await savePhoto(family, key, value)
+                    await savePhoto(family_key, key, value)
                     commit('NEW_PHOTO_SAVED')
                 })
             }
